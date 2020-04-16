@@ -1,0 +1,35 @@
+{
+    "AWSDBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "forceedge01/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "forceedge01/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "forceedge01/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "gateway",
+            "image": "forceedge01/multi-nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
